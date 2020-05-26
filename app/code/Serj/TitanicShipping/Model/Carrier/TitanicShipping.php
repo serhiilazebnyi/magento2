@@ -1,13 +1,13 @@
 <?php
 
-namespace Vendor\CustomShipping\Model\Carrier;
+namespace Serj\TitanicShipping\Model\Carrier;
 
 use Magento\Quote\Model\Quote\Address\RateRequest;
 use Magento\Shipping\Model\Carrier\AbstractCarrier;
 use Magento\Shipping\Model\Carrier\CarrierInterface;
 
 /**
- * Custom shipping model
+ * Titanic shipping model
  */
 class TitanicShipping extends AbstractCarrier implements CarrierInterface
 {
