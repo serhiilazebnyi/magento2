@@ -1,0 +1,30 @@
+{
+    "voucher_status": {
+        "column": {
+            "entity_id": true,
+            "status_code": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "VOUCHER_STATUS_STATUS_CODE": true
+        }
+    },
+    "voucher": {
+        "column": {
+            "entity_id": true,
+            "customer_id": true,
+            "status_id": true,
+            "voucher_code": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "VOUCHER_VOUCHER_CODE": true,
+            "VOUCHER_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID": true,
+            "VOUCHER_STATUS_ID_VOUCHER_STATUS_ENTITY_ID": true
+        }
+    }
+}

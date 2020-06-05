@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Serj\VoucherApi\Api\Data\VoucherStatusInterface" type="Serj\VoucherApi\Model\VoucherStatus"/>
+    <preference for="Serj\VoucherApi\Api\VoucherStatusRepositoryInterface" type="Serj\VoucherApi\Model\VoucherStatusRepository"/>
+
+    <preference for="Serj\VoucherApi\Api\Data\VoucherInterface" type="Serj\VoucherApi\Model\Voucher"/>
+    <preference for="Serj\VoucherApi\Api\VoucherRepositoryInterface" type="Serj\VoucherApi\Model\VoucherRepository"/>
+</config>
