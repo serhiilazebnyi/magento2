@@ -8,7 +8,6 @@ use Serj\VoucherApi\Model\ResourceModel\VoucherStatus as ResourceModel;
 
 /**
  * Class VoucherStatus
- * @package Serj\VoucherApi\Model
  */
 class VoucherStatus extends AbstractModel implements VoucherStatusInterface
 {
@@ -17,20 +16,22 @@ class VoucherStatus extends AbstractModel implements VoucherStatusInterface
      */
     protected $_idFieldName = VoucherStatusInterface::ID;
 
-	protected function _construct()
-	{
-		$this->_init(ResourceModel::class);
-	}
+    protected function _construct()
+    {
+    	$this->_init(ResourceModel::class);
+    }
 
     /**
-    * @return int
-    */
-   public function getId()
-   {
+     * getId
+     * @return int
+     */
+    public function getId()
+    {
        return $this->getData(VoucherStatusInterface::ID);
-   }
+    }
 
    /**
+    * setId
     * @param int $id
     * @return $this
     */
@@ -41,6 +42,7 @@ class VoucherStatus extends AbstractModel implements VoucherStatusInterface
    }
 
     /**
+     * getStatusCode
      * @return string
      */
     public function getStatusCode()
@@ -49,6 +51,7 @@ class VoucherStatus extends AbstractModel implements VoucherStatusInterface
     }
 
     /**
+     * setStatusCode
      * @param string $statusCode
      * @return $this
      */
@@ -67,6 +70,7 @@ class VoucherStatus extends AbstractModel implements VoucherStatusInterface
     }
 
     /**
+     * setCreatedAt
      * @param string $createdAt
      * @return $this
      */
@@ -77,6 +81,7 @@ class VoucherStatus extends AbstractModel implements VoucherStatusInterface
     }
 
     /**
+     * getUpdatedAt
      * @return string
      */
     public function getUpdatedAt()
@@ -85,6 +90,7 @@ class VoucherStatus extends AbstractModel implements VoucherStatusInterface
     }
 
     /**
+     * setUpdatedAt
      * @param string $updatedAt
      * @return $this
      */

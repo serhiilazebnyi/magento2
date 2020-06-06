@@ -7,19 +7,19 @@
 			<resource ref="anonymous"/>
 		</resources>
 	</route>
-    <route method="GET" url="/V1/voucher/list">
+    <route method="GET" url="/V1/voucher/">
 		<service class="Serj\VoucherApi\Api\VoucherRepositoryInterface" method="getList"/>
 		<resources>
 			<resource ref="anonymous"/>
 		</resources>
 	</route>
-    <route method="POST" url="/V1/voucher/create">
+    <route method="POST" url="/V1/voucher/">
 		<service class="Serj\VoucherApi\Api\VoucherRepositoryInterface" method="save"/>
 		<resources>
 			<resource ref="Magento_Backend::admin"/>
 		</resources>
 	</route>
-    <route method="DELETE" url="/V1/voucher/delete/:voucherId">
+    <route method="DELETE" url="/V1/voucher/:voucherId">
 		<service class="Serj\VoucherApi\Api\VoucherRepositoryInterface" method="delete"/>
 		<resources>
 			<resource ref="Magento_Backend::admin"/>
@@ -27,19 +27,19 @@
 	</route>
 
     <!-- Voucher status routes -->
-    <route method="POST" url="/V1/voucher/status/create">
+    <route method="POST" url="/V1/voucher/status/">
 		<service class="Serj\VoucherApi\Api\VoucherStatusRepositoryInterface" method="save"/>
 		<resources>
 			<resource ref="Magento_Backend::admin"/>
 		</resources>
 	</route>
-    <route method="DELETE" url="/V1/voucher/status/delete/:voucherStatusId">
+    <route method="DELETE" url="/V1/voucher/status/:voucherStatusId">
 		<service class="Serj\VoucherApi\Api\VoucherStatusRepositoryInterface" method="delete"/>
 		<resources>
 			<resource ref="Magento_Backend::admin"/>
 		</resources>
 	</route>
-    <route method="GET" url="/V1/voucher/status/list">
+    <route method="GET" url="/V1/voucher/status/">
 		<service class="Serj\VoucherApi\Api\VoucherStatusRepositoryInterface" method="getList"/>
 		<resources>
 			<resource ref="anonymous"/>

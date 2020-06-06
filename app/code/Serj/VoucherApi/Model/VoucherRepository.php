@@ -10,6 +10,10 @@ use Serj\VoucherApi\Model\ResourceModel\Voucher as VoucherResource;
 use Serj\VoucherApi\Model\ResourceModel\Voucher\CollectionFactory as VoucherCollectionFactory;
 use Magento\Framework\Exception\LocalizedException;
 
+/**
+ * class VoucherRepository
+ * @api
+ */
 class VoucherRepository implements VoucherRepositoryInterface
 {
     private $voucherResource;
@@ -41,7 +45,7 @@ class VoucherRepository implements VoucherRepositoryInterface
             return ['status' => 'error', 'message' => $e->getMessage()];
         }
 
-        return ['status' => 'success'];
+        return ['{"status":"success"}'];
     }
 
     /**
@@ -65,7 +69,7 @@ class VoucherRepository implements VoucherRepositoryInterface
             return ['status' => 'error', 'message' => $e->getMessage()];
         }
 
-        return ['status' => 'success'];
+        return ['{"status":"success"}'];
     }
 
     public function getList()

@@ -14,7 +14,6 @@ use Magento\Framework\Data\Collection\AbstractDb;
 
 /**
  * Class Voucher
- * @package Serj\VoucherApi\Model
  */
 class Voucher extends AbstractModel implements VoucherInterface
 {
@@ -24,7 +23,6 @@ class Voucher extends AbstractModel implements VoucherInterface
     protected $_idFieldName = VoucherInterface::ID;
     private $customerCollectionFactory;
     private $voucherStatusCollectionFactory;
-
 
     public function __construct(
         CustomerCollectionFactory $customerCollectionFactory,
@@ -46,6 +44,7 @@ class Voucher extends AbstractModel implements VoucherInterface
 	}
 
     /**
+     * getId
     * @return int
     */
    public function getId()
@@ -54,6 +53,7 @@ class Voucher extends AbstractModel implements VoucherInterface
    }
 
    /**
+    * setId
     * @param int $id
     * @return $this
     */
@@ -64,6 +64,7 @@ class Voucher extends AbstractModel implements VoucherInterface
    }
 
     /**
+     * getCustomerId
     * @return string
     */
     public function getCustomerId()
@@ -72,6 +73,7 @@ class Voucher extends AbstractModel implements VoucherInterface
     }
 
     /**
+     * setCustomerId
     * @param string $customerName
     * @return $this
     */
@@ -88,6 +90,7 @@ class Voucher extends AbstractModel implements VoucherInterface
     }
 
     /**
+     * getStatusId
     * @return string
     */
     public function getStatusId()
@@ -96,6 +99,7 @@ class Voucher extends AbstractModel implements VoucherInterface
     }
 
     /**
+     * setStatusId
     * @param string $statusCode
     * @return $this
     */
@@ -111,6 +115,7 @@ class Voucher extends AbstractModel implements VoucherInterface
     }
 
     /**
+     * getVoucherCode
     * @return string
     */
    public function getVoucherCode()
@@ -119,6 +124,7 @@ class Voucher extends AbstractModel implements VoucherInterface
    }
 
    /**
+    * setVoucherCode
     * @param string $voucherCode
     * @return $this
     */
@@ -129,6 +135,7 @@ class Voucher extends AbstractModel implements VoucherInterface
    }
 
     /**
+     * getCreatedAt
      * @return string
      */
     public function getCreatedAt()
@@ -137,6 +144,7 @@ class Voucher extends AbstractModel implements VoucherInterface
     }
 
     /**
+     * setCreatedAt
      * @param string $createdAt
      * @return $this
      */
@@ -147,6 +155,7 @@ class Voucher extends AbstractModel implements VoucherInterface
     }
 
     /**
+     * getUpdatedAt
      * @return string
      */
     public function getUpdatedAt()
@@ -155,6 +164,7 @@ class Voucher extends AbstractModel implements VoucherInterface
     }
 
     /**
+     * setUpdatedAt
      * @param string $updatedAt
      * @return $this
      */

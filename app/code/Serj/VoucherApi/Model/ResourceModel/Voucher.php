@@ -7,10 +7,13 @@ use Serj\VoucherApi\Api\Data\VoucherInterface;
 
 /**
  * Class Voucher
- * @package Serj\VoucherApi\Model\ResourceModel
  */
 class Voucher extends AbstractDb
 {
+    /**
+     * Constants
+     * @var string
+     */
     const TABLE_NAME = 'voucher';
 
 	public function __construct(

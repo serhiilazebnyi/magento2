@@ -11,9 +11,8 @@ use Magento\Framework\Exception\LocalizedException;
 
 /**
  * Class VoucherStatusRepository
- * @package Serj\VoucherApi\Model
+ * @api
  */
-
 class VoucherStatusRepository implements VoucherStatusRepositoryInterface
 {
     private $voucherStatusCollectionFactory;
@@ -32,18 +31,20 @@ class VoucherStatusRepository implements VoucherStatusRepositoryInterface
 
     /**
      * Create new voucher status
-     * @param \Serj\VoucherApi\Api\Data\VoucherStatusInterface $voucherStatus
+     * @param string $voucherStatus
      * @return array
      */
-    public function save(VoucherStatusInterface $voucherStatus)
+    public function save(string $statusCode)
     {
         try {
+            $voucherStatus = $this->voucherStatusFactory->create();
+            $voucherStatus->setStatusCode($statusCode);
             $this->resourceModel->save($voucherStatus);
         } catch (\Exception $e) {
             return ['status' => 'error', 'message' => $e->getMessage()];
         }
 
-        return ['status' => 'success'];
+        return ['{"status":"success"}'];
     }
 
     /**
@@ -68,7 +69,7 @@ class VoucherStatusRepository implements VoucherStatusRepositoryInterface
             return ['status' => 'error', 'message' => $e->getMessage()];
         }
 
-        return ['status' => 'success'];
+        return ['{"status":"success"}'];
     }
 
     /**
