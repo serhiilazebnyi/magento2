@@ -4,6 +4,10 @@ namespace Serj\VoucherApi\Api;
 
 use Serj\VoucherApi\Api\Data\VoucherInterface;
 
+/**
+ * Interface VoucherRepositoryInterface
+ * @api
+ */
 interface VoucherRepositoryInterface
 {
     /**

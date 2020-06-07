@@ -6,17 +6,16 @@ use Serj\VoucherApi\Api\Data\VoucherStatusInterface;
 
 /**
  * Interface VoucherStatusRepositoryInterface
- * @package Serj\Api
  * @api
  */
 interface VoucherStatusRepositoryInterface
 {
     /**
      * Create new voucher status
-     * @param \Serj\VoucherApi\Api\Data\VoucherStatusInterface $voucherStatus
+     * @param string $voucherStatus
      * @return mixed
      */
-    public function save(VoucherStatusInterface $voucherStatus);
+    public function save(string $statusCode);
 
     /**
      * Delete voucher status

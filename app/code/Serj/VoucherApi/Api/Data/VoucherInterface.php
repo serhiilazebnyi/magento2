@@ -3,7 +3,6 @@ namespace Serj\VoucherApi\Api\Data;
 
 /**
 * Interface VoucherInterface
-* @package VoucherApi\Api\Data
 * @api
  */
 interface VoucherInterface

@@ -7,16 +7,18 @@ use Serj\VoucherApi\Api\Data\VoucherStatusInterface;
 
 /**
  * Class VoucherStatus
- * @package Serj\VoucherApi\Model\ResourceModel
  */
 class VoucherStatus extends AbstractDb
 {
+    /**
+     * Constants
+     * @var string
+     */
     const TABLE_NAME = 'voucher_status';
 
 	public function __construct(
 		Context $context
-	)
-	{
+	) {
 		parent::__construct($context);
 	}
 
