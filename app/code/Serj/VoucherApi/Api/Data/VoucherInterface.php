@@ -1,11 +1,14 @@
 <?php
+
 namespace Serj\VoucherApi\Api\Data;
+
+use Magento\Framework\Api\ExtensibleDataInterface;
 
 /**
 * Interface VoucherInterface
 * @api
  */
-interface VoucherInterface
+interface VoucherInterface extends ExtensibleDataInterface
 {
     /**
      * Constants
@@ -83,4 +86,21 @@ interface VoucherInterface
      * @return $this
      */
     public function setUpdatedAt(string $updatedAt);
+
+    /**
+     * Retrieve existing extension attributes object or create a new one.
+     *
+     * @return \Serj\VoucherApi\Api\Data\VoucherExtensionInterface|null
+     */
+    public function getExtensionAttributes();
+
+    /**
+     * Set an extension attributes object.
+     *
+     * @param \Serj\VoucherApi\Api\Data\VoucherExtensionInterface $extensionAttributes
+     * @return $this
+     */
+    public function setExtensionAttributes(
+        \Serj\VoucherApi\Api\Data\VoucherExtensionInterface $extensionAttributes
+    );
 }

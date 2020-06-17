@@ -39,6 +39,13 @@ class VoucherRepository implements VoucherRepositoryInterface
     */
     public function save(VoucherInterface $voucher)
     {
+        $customer = $this->customerFactory
+            ->create()
+            ->load($voucher->getCustomerId());
+        $extensionAttributes = $voucher->getExtensionAttributes();
+        $extensionAttributes->setCustomer($customer);
+        $voucher->setExtensionAttributes($extensionAttributes);
+
         try {
             $this->voucherResource->save($voucher);
         } catch (\Exception $e) {
@@ -55,8 +62,8 @@ class VoucherRepository implements VoucherRepositoryInterface
      */
 	public function delete(int $voucherId)
     {
-        $voucher = $this->voucherFactory->create()
-            ->load($voucherId);
+        $voucher = $this->voucherFactory->create();
+        $this->voucherResource->load($voucher, $voucherId);
 
         if (empty($voucher->getData())) {
             throw new LocalizedException(__('Voucher not found!',
