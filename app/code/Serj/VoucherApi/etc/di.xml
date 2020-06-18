@@ -5,4 +5,14 @@
 
     <preference for="Serj\VoucherApi\Api\Data\VoucherInterface" type="Serj\VoucherApi\Model\Voucher"/>
     <preference for="Serj\VoucherApi\Api\VoucherRepositoryInterface" type="Serj\VoucherApi\Model\VoucherRepository"/>
+
+    <type name="Serj\VoucherApi\Api\VoucherRepositoryInterface">
+      <plugin name="check_customer_privileges_plugin"
+          type="Serj\VoucherApi\Plugin\CheckCustomerPrivilegesPlugin" sortOrder="1" disabled="false" />
+    </type>
+
+    <type name="Serj\VoucherApi\Model\Voucher">
+        <plugin name="extension_attribute_plugin"
+            type="Serj\VoucherApi\Plugin\ExtensionAttributePlugin" sortOrder="2" disabled="false" />
+    </type>
 </config>

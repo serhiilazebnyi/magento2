@@ -2,7 +2,7 @@
 
 namespace Serj\VoucherApi\Model;
 
-use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\Model\AbstractExtensibleModel;
 use Serj\VoucherApi\Api\Data\VoucherInterface;
 use Serj\VoucherApi\Model\ResourceModel\Voucher as ResourceModel;
 use Magento\Customer\Model\ResourceModel\Customer\CollectionFactory as CustomerCollectionFactory;
@@ -11,11 +11,14 @@ use Magento\Framework\Model\Context;
 use Magento\Framework\Registry;
 use Magento\Framework\Model\ResourceModel\AbstractResource;
 use Magento\Framework\Data\Collection\AbstractDb;
+use Magento\Framework\Api\ExtensionAttributesFactory;
+use Magento\Framework\Api\AttributeValueFactory;
+use Magento\Framework\Exception\LocalizedException;
 
 /**
  * Class Voucher
  */
-class Voucher extends AbstractModel implements VoucherInterface
+class Voucher extends AbstractExtensibleModel implements VoucherInterface
 {
     /**
      * @var string
@@ -23,19 +26,31 @@ class Voucher extends AbstractModel implements VoucherInterface
     protected $_idFieldName = VoucherInterface::ID;
     private $customerCollectionFactory;
     private $voucherStatusCollectionFactory;
+    protected $extensionAttributesFactory;
+    protected $customAttributeFactory;
 
     public function __construct(
         CustomerCollectionFactory $customerCollectionFactory,
         VoucherStatusCollectionFactory $voucherStatusCollectionFactory,
         Context $context,
         Registry $registry,
+        ExtensionAttributesFactory $extensionFactory,
+        AttributeValueFactory $customAttributeFactory,
         AbstractResource $resource = null,
         AbstractDb $resourceCollection = null,
         array $data = []
     ) {
         $this->customerCollectionFactory = $customerCollectionFactory;
         $this->voucherStatusCollectionFactory = $voucherStatusCollectionFactory;
-        parent::__construct($context, $registry, $resource, $resourceCollection, $data);
+        parent::__construct(
+            $context,
+            $registry,
+            $extensionFactory,
+            $customAttributeFactory,
+            $resource,
+            $resourceCollection,
+            $data
+        );
     }
 
 	protected function _construct()
@@ -85,6 +100,11 @@ class Voucher extends AbstractModel implements VoucherInterface
             ->getFirstItem()
             ->getId();
 
+        if ($customerId === null) {
+            throw new LocalizedException(__('Customer not exists!',
+                ['Customer name' => $customerName]));
+        }
+
         $this->setData(VoucherInterface::CUSTOMER_ID, $customerId);
         return $this;
     }
@@ -109,6 +129,11 @@ class Voucher extends AbstractModel implements VoucherInterface
         $statusId = $voucherStatusCollection->filterByStatusCode($statusCode)
             ->getFirstItem()
             ->getId();
+
+        if ($statusId === null) {
+            throw new LocalizedException(__('Voucher status not exists!',
+                ['Voucher status' => $statusCode]));
+        }
 
         $this->setData(VoucherInterface::STATUS_ID, $statusId);
         return $this;
@@ -172,5 +197,27 @@ class Voucher extends AbstractModel implements VoucherInterface
     {
         $this->setData(VoucherInterface::UPDATED_AT, $updatedAt);
         return $this;
+    }
+
+    /**
+     * Retrieve existing extension attributes object or create a new one.
+     *
+     * @return \Serj\VoucherApi\Api\Data\VoucherExtensionInterface|null
+     */
+    public function getExtensionAttributes()
+    {
+        return $this->_getExtensionAttributes();
+    }
+
+    /**
+     * Set an extension attributes object.
+     *
+     * @param \Serj\VoucherApi\Api\Data\VoucherExtensionInterface $extensionAttributes
+     * @return $this
+     */
+    public function setExtensionAttributes(
+        \Serj\VoucherApi\Api\Data\VoucherExtensionInterface $extensionAttributes
+    ) {
+        return $this->_setExtensionAttributes($extensionAttributes);
     }
 }

@@ -11,6 +11,7 @@ use Serj\VoucherApi\Api\Data\VoucherInterface;
 interface VoucherRepositoryInterface
 {
     /**
+     * POST save
 	 * @param \Serj\VoucherApi\Api\Data\VoucherInterface $voucher
 	 * @return mixed
 	 */

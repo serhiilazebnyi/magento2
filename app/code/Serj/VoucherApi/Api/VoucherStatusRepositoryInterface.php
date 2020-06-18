@@ -13,20 +13,20 @@ interface VoucherStatusRepositoryInterface
     /**
      * Create new voucher status
      * @param string $voucherStatus
-     * @return mixed
+     * @return array
      */
     public function save(string $statusCode);
 
     /**
      * Delete voucher status
      * @param int $voucherStatusId
-     * @return mixed
+     * @return array
      */
 	public function delete(int $voucherStatusId);
 
     /**
 	 * Get all voucher statuses
-	 * @return mixed
+	 * @return array
 	 */
     public function getList();
 }
