@@ -11,7 +11,7 @@ use Magento\Customer\Model\CustomerFactory;
 use Serj\VoucherApi\Model\VoucherStatusFactory;
 use Serj\VoucherApi\Model\VoucherFactory;
 
-class sampleData implements DataPatchInterface, PatchVersionInterface
+class SampleData implements DataPatchInterface, PatchVersionInterface
 {
     private $moduleDataSetup;
     private $customerFactory;

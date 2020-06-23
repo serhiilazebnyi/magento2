@@ -4,16 +4,7 @@ namespace Serj\VoucherApi\Model;
 
 use Magento\Framework\Model\AbstractExtensibleModel;
 use Serj\VoucherApi\Api\Data\VoucherInterface;
-use Serj\VoucherApi\Model\ResourceModel\Voucher as ResourceModel;
-use Magento\Customer\Model\ResourceModel\Customer\CollectionFactory as CustomerCollectionFactory;
-use Serj\VoucherApi\Model\ResourceModel\VoucherStatus\CollectionFactory as VoucherStatusCollectionFactory;
-use Magento\Framework\Model\Context;
-use Magento\Framework\Registry;
-use Magento\Framework\Model\ResourceModel\AbstractResource;
-use Magento\Framework\Data\Collection\AbstractDb;
-use Magento\Framework\Api\ExtensionAttributesFactory;
-use Magento\Framework\Api\AttributeValueFactory;
-use Magento\Framework\Exception\LocalizedException;
+use Serj\VoucherApi\Model\ResourceModel\Voucher as VoucherResource;
 
 /**
  * Class Voucher
@@ -24,38 +15,10 @@ class Voucher extends AbstractExtensibleModel implements VoucherInterface
      * @var string
      */
     protected $_idFieldName = VoucherInterface::ID;
-    private $customerCollectionFactory;
-    private $voucherStatusCollectionFactory;
-    protected $extensionAttributesFactory;
-    protected $customAttributeFactory;
-
-    public function __construct(
-        CustomerCollectionFactory $customerCollectionFactory,
-        VoucherStatusCollectionFactory $voucherStatusCollectionFactory,
-        Context $context,
-        Registry $registry,
-        ExtensionAttributesFactory $extensionFactory,
-        AttributeValueFactory $customAttributeFactory,
-        AbstractResource $resource = null,
-        AbstractDb $resourceCollection = null,
-        array $data = []
-    ) {
-        $this->customerCollectionFactory = $customerCollectionFactory;
-        $this->voucherStatusCollectionFactory = $voucherStatusCollectionFactory;
-        parent::__construct(
-            $context,
-            $registry,
-            $extensionFactory,
-            $customAttributeFactory,
-            $resource,
-            $resourceCollection,
-            $data
-        );
-    }
 
 	protected function _construct()
 	{
-		$this->_init(ResourceModel::class);
+		$this->_init(VoucherResource::class);
 	}
 
     /**
@@ -80,7 +43,7 @@ class Voucher extends AbstractExtensibleModel implements VoucherInterface
 
     /**
      * getCustomerId
-    * @return string
+    * @return int
     */
     public function getCustomerId()
     {
@@ -89,29 +52,18 @@ class Voucher extends AbstractExtensibleModel implements VoucherInterface
 
     /**
      * setCustomerId
-    * @param string $customerName
+    * @param int $customerId
     * @return $this
     */
-    public function setCustomerId(string $customerName)
+    public function setCustomerId(int $customerId)
     {
-        $customerCollection = $this->customerCollectionFactory->create();
-        $customerId = $customerCollection->addNameToSelect()
-            ->addFieldToFilter('name', $customerName)
-            ->getFirstItem()
-            ->getId();
-
-        if ($customerId === null) {
-            throw new LocalizedException(__('Customer not exists!',
-                ['Customer name' => $customerName]));
-        }
-
         $this->setData(VoucherInterface::CUSTOMER_ID, $customerId);
         return $this;
     }
 
     /**
      * getStatusId
-    * @return string
+    * @return int
     */
     public function getStatusId()
     {
@@ -120,21 +72,11 @@ class Voucher extends AbstractExtensibleModel implements VoucherInterface
 
     /**
      * setStatusId
-    * @param string $statusCode
+    * @param int $statusCode
     * @return $this
     */
-    public function setStatusId(string $statusCode)
+    public function setStatusId(int $statusId)
     {
-        $voucherStatusCollection = $this->voucherStatusCollectionFactory->create();
-        $statusId = $voucherStatusCollection->filterByStatusCode($statusCode)
-            ->getFirstItem()
-            ->getId();
-
-        if ($statusId === null) {
-            throw new LocalizedException(__('Voucher status not exists!',
-                ['Voucher status' => $statusCode]));
-        }
-
         $this->setData(VoucherInterface::STATUS_ID, $statusId);
         return $this;
     }
