@@ -1,0 +1,26 @@
+<?php
+/** @var Magento\Backend\Block\Template $block */
+/** @var \Serj\VoucherApi\ViewModel\CustomerDataProvider $customerDataProvider */
+$customerDataProvider = $block->getCustomerDataProviderViewModel();
+/** @var Magento\Backend\Block\Template $block */
+/** @var \Serj\VoucherApi\ViewModel\VoucherDataProvider $voucherDataProvider */
+$statusDataProvider = $block->getVoucherStatusDataProviderViewModel();
+
+// Redirect customer to login page if not logged in
+$customerDataProvider->redirectIfNotLoggedIn();
+
+$status = $statusDataProvider->getEditData();
+?>
+<a class="action primary" href="<?= $block->getUrl('vouchers/status'); ?>">Back</a>
+<form   action="<?= $block->getUrl('vouchers/status/save') ?>"
+        method="post"
+        data-mage-init='{"validation":{}}'>
+    <input type="hidden" name="entity_id" value="<?= $status->getId() ?>">
+    <label for="status_code">Status Code</label>
+    <input type="text"
+        name="status_code" id="status_code"
+        value="<?= $status->getStatusCode() ?>"
+        class="minimum-length-3 maximum-length-16"
+        data-validate="{required:true, 'validate-alphanum':true, 'validate-length':true}">
+    <button type="submit" name="button">Submit</button>
+</form>

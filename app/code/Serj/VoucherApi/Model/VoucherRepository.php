@@ -16,11 +16,29 @@ use Magento\Framework\Exception\LocalizedException;
  */
 class VoucherRepository implements VoucherRepositoryInterface
 {
+    /**
+     * @var VoucherResource
+     */
     private $voucherResource;
+    /**
+     * @var CustomerFactory
+     */
     private $customerFactory;
+    /**
+     * @var VoucherFactory
+     */
     private $voucherFactory;
+    /**
+     * @var VoucherCollectionFactory
+     */
     private $voucherCollectionFactory;
 
+    /**
+     * @param VoucherResource          $voucherResource
+     * @param CustomerFactory          $customerFactory
+     * @param VoucherFactory           $voucherFactory
+     * @param VoucherCollectionFactory $voucherCollectionFactory
+     */
     public function __construct(
         VoucherResource $voucherResource,
         CustomerFactory $customerFactory,
@@ -39,14 +57,13 @@ class VoucherRepository implements VoucherRepositoryInterface
     */
     public function save(VoucherInterface $voucher)
     {
-        $customer = $this->customerFactory
-            ->create()
-            ->load($voucher->getCustomerId());
-        $extensionAttributes = $voucher->getExtensionAttributes();
-        $extensionAttributes->setCustomer($customer);
-        $voucher->setExtensionAttributes($extensionAttributes);
-
         try {
+            $customer = $this->customerFactory
+                ->create()
+                ->load($voucher->getCustomerId());
+            $extensionAttributes = $voucher->getExtensionAttributes();
+            $extensionAttributes->setCustomer($customer);
+            $voucher->setExtensionAttributes($extensionAttributes);
             $this->voucherResource->save($voucher);
         } catch (\Exception $e) {
             return ['status' => 'error', 'message' => $e->getMessage()];
@@ -65,7 +82,7 @@ class VoucherRepository implements VoucherRepositoryInterface
         $voucher = $this->voucherFactory->create();
         $this->voucherResource->load($voucher, $voucherId);
 
-        if (empty($voucher->getData())) {
+        if (empty($voucher->getId())) {
             throw new LocalizedException(__('Voucher not found!',
                 ['voucher_id' => $voucherId]));
         }
@@ -82,6 +99,11 @@ class VoucherRepository implements VoucherRepositoryInterface
     public function getList()
     {
         $voucherCollection = $this->voucherCollectionFactory->create();
+
+        foreach ($voucherCollection as $item) {
+            var_dump(get_class($voucherCollection));
+        }
+        exit();
         $data = $voucherCollection->addFieldToSelect([
             VoucherInterface::ID,
             VoucherInterface::CUSTOMER_ID,
@@ -117,7 +139,7 @@ class VoucherRepository implements VoucherRepositoryInterface
             VoucherInterface::CUSTOMER_ID,
             VoucherInterface::STATUS_ID,
             VoucherInterface::VOUCHER_CODE
-        ])->filterByCustomerId($customerId)->getData();
+        ])->filterByCustomerId($customerId);
 
         if (empty($data)) {
             throw new LocalizedException(
@@ -126,5 +148,31 @@ class VoucherRepository implements VoucherRepositoryInterface
         }
 
         return $data;
+    }
+
+    /**
+     * Gets voucher by id
+     * @param  int $voucherId
+     * @return VoucherInterface
+     */
+    public function getById(int $voucherId = null)
+    {
+        $voucher = $this->voucherFactory->create();
+        $this->voucherResource->load($voucher, $voucherId);
+
+        return $voucher;
+    }
+
+    /**
+     * Builds voucher based on data
+     * @param  array $data
+     * @return VoucherInterface $voucher
+     */
+    public function buildVoucher($data = [])
+    {
+        $voucher = $this->voucherFactory->create();
+        $voucher->setData($data);
+
+        return $voucher;
     }
 }

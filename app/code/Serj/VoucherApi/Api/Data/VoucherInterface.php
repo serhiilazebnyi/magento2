@@ -33,26 +33,26 @@ interface VoucherInterface extends ExtensibleDataInterface
    public function setId($id);
 
     /**
-    * @return string
+    * @return int
     */
     public function getCustomerId();
 
     /**
-    * @param string $customerName
+    * @param int $customerId
     * @return $this
     */
-    public function setCustomerId(string $customerName);
+    public function setCustomerId(int $customerId);
 
     /**
-    * @return string
+    * @return int
     */
    public function getStatusId();
 
    /**
-    * @param string $statusCode
+    * @param int $statusId
     * @return $this
     */
-   public function setStatusId(string $statusCode);
+   public function setStatusId(int $statusId);
 
    /**
    * @return string

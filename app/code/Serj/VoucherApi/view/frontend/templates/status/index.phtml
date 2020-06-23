@@ -1,0 +1,47 @@
+<?php
+/** @var Magento\Backend\Block\Template $block */
+/** @var \Serj\VoucherApi\ViewModel\CustomerDataProvider $customerDataProvider */
+$customerDataProvider = $block->getCustomerDataProviderViewModel();
+/** @var Magento\Backend\Block\Template $block */
+/** @var \Serj\VoucherApi\ViewModel\VoucherDataProvider $voucherDataProvider */
+$statusesDataProvider = $block->getVoucherStatusDataProviderViewModel();
+
+// Redirect customer to login page if not logged in
+$customerDataProvider->redirectIfNotLoggedIn();
+?>
+
+<a class="action primary" href="<?php echo $block->getUrl('vouchers/status/insert'); ?>">Add Record</a>
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Status</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+        <?php
+            $statuses = $statusesDataProvider->getVoucherStatuses();
+            foreach($statuses as $status){
+        ?>
+        <tr>
+            <td><?php echo $status->getId(); ?></td>
+            <td><?php echo $status->getStatusCode(); ?></td>
+            <td><a href="<?= sprintf(
+                        '%sid/%s',
+                        $block->getUrl('vouchers/status/edit'),
+                        $status->getId()
+                    )?>"
+                    class="action primary">Edit</a></td>
+            <td>
+                <form action="<?= sprintf(
+                            '%sid/%s',
+                            $block->getUrl('vouchers/status/delete'),
+                            $status->getId()
+                        )?>"
+                        method="post">
+                        <button type="submit" name="submit" class="action primary">Delete</button>
+                </form>
+            </td>
+        </tr>
+     <?php } ?>
+</table>

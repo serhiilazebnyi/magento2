@@ -1,0 +1,40 @@
+<?php
+/** @var Magento\Backend\Block\Template $block */
+/** @var \Serj\VoucherApi\ViewModel\CustomerDataProvider $customerDataProvider */
+$customerDataProvider = $block->getCustomerDataProviderViewModel();
+/** @var Magento\Backend\Block\Template $block */
+/** @var \Serj\VoucherApi\ViewModel\VoucherDataProvider $voucherDataProvider */
+$voucherDataProvider = $block->getVoucherDataProviderViewModel();
+
+// Redirect customer to login page if not logged in
+$customerDataProvider->redirectIfNotLoggedIn();
+
+$voucher = $voucherDataProvider->getEditData();
+$customerId = $customerDataProvider->getCurrentCustomer()->getId();
+$statusesSelect = $voucherDataProvider->getStatusesForSelect();
+?>
+<a class="action primary" href="<?= $block->getUrl('vouchers'); ?>">Back</a>
+<form   action="<?= $block->getUrl('vouchers/index/save') ?>"
+        method="post"
+        data-mage-init='{"validation":{}}'>
+    <input type="hidden" name="entity_id" value="<?= $voucher->getId() ?>">
+    <input type="hidden" name="customer_id" value="<?= $customerId ?>">
+    <label for="status_id">Status</label>
+    <select name="status_id" id="status_id">
+        <?php foreach ($statusesSelect as $id => $status): ?>
+            <option
+                value="<?= $id ?>"
+                <?= $voucher->getStatusId() == $id ? 'selected' : '' ?>>
+                <?= $status ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+    <label for="voucher_code">Voucher Code</label>
+    <input
+        type="text"
+        name="voucher_code" id="voucher_code"
+        value="<?= $voucher->getVoucherCode() ?>"
+        class="minimum-length-8 maximum-length-32"
+        data-validate="{required:true, 'validate-alphanum':true, 'validate-length':true}">
+    <button type="submit" name="button">Submit</button>
+</form>

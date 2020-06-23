@@ -25,7 +25,7 @@ class ExtensionAttributePlugin
     public function beforeBeforeSave(Subject $subject)
     {
         $subject->setCustomerId(
-            $subject->getExtensionAttributes()->getCustomer()->getName()
+            $subject->getExtensionAttributes()->getCustomer()->getId()
         );
     }
 

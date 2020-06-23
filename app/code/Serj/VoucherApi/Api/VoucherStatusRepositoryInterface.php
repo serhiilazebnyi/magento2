@@ -29,4 +29,18 @@ interface VoucherStatusRepositoryInterface
 	 * @return array
 	 */
     public function getList();
+
+    /**
+     * Gets voucher statuses by id
+     * @param  int $statusId
+     * @return VoucherStatusInterface
+     */
+    public function getById(int $statusId = null);
+
+    /**
+     * Builds voucher status based on data
+     * @param  array $data
+     * @return VoucherStatusInterface $voucher
+     */
+    public function buildVoucherStatus($data = []);
 }

@@ -47,6 +47,17 @@ class VoucherStatusRepository implements VoucherStatusRepositoryInterface
         return ['{"status":"success"}'];
     }
 
+    public function saveEntity(VoucherStatusInterface $voucherStatus)
+    {
+        try {
+            $this->resourceModel->save($voucherStatus);
+        } catch (\Exception $e) {
+            return ['status' => 'error', 'message' => $e->getMessage()];
+        }
+
+        return ['{"status":"success"}'];
+    }
+
     /**
      * Delete voucher status
      * @param int $voucherStatusId
@@ -82,12 +93,38 @@ class VoucherStatusRepository implements VoucherStatusRepositoryInterface
         $data = $voucherStatusCollection->addFieldToSelect([
             VoucherStatusInterface::ID,
             VoucherStatusInterface::STATUS_CODE
-        ])->setOrder(VoucherStatusInterface::ID, 'ASC')->getData();
+        ])->setOrder(VoucherStatusInterface::ID, 'ASC');
 
         if (empty($data)) {
             throw new LocalizedException(__('There is no any voucher status yet!'));
         }
 
         return $data;
+    }
+
+    /**
+     * Gets voucher statuses by id
+     * @param  int $statusId
+     * @return VoucherStatusInterface
+     */
+    public function getById(int $statusId = null)
+    {
+        $voucherStatus = $this->voucherStatusFactory->create();
+        $this->resourceModel->load($voucherStatus, $statusId);
+
+        return $voucherStatus;
+    }
+
+    /**
+     * Builds voucher status based on data
+     * @param  array $data
+     * @return VoucherStatusInterface $voucher
+     */
+    public function buildVoucherStatus($data = [])
+    {
+        $status = $this->voucherStatusFactory->create();
+        $status->setData($data);
+
+        return $status;
     }
 }

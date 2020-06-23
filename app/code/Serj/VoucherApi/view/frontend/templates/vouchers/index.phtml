@@ -1,0 +1,54 @@
+<?php
+/** @var Magento\Backend\Block\Template $block */
+/** @var \Serj\VoucherApi\ViewModel\CustomerDataProvider $customerDataProvider */
+$customerDataProvider = $block->getCustomerDataProviderViewModel();
+/** @var Magento\Backend\Block\Template $block */
+/** @var \Serj\VoucherApi\ViewModel\VoucherDataProvider $voucherDataProvider */
+$voucherDataProvider = $block->getVoucherDataProviderViewModel();
+
+// Redirect customer to login page if not logged in
+$customerDataProvider->redirectIfNotLoggedIn();
+
+$customerId = $customerDataProvider->getCurrentCustomer()->getId();
+
+if($customerDataProvider->isPrivilegedCustomer()):
+?>
+<a class="action primary" href="<?= $block->getUrl('vouchers/index/insert'); ?>">Add Record</a>
+<table>
+    <tr>
+        <th>Voucher Id</th>
+        <th>Status Id</th>
+        <th>Voucher Code</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+ <?php
+      $vouchers = $voucherDataProvider->getCustomerVouchers($customerId);
+      foreach($vouchers as $voucher){
+ ?>
+    <tr>
+        <td><?php echo $voucher->getId(); ?></td>
+        <td><?php echo $voucher->getStatusId(); ?></td>
+        <td><?php echo $voucher->getVoucherCode(); ?></td>
+        <td><a href="<?= sprintf(
+                    '%sid/%s',
+                    $block->getUrl('vouchers/index/edit'),
+                    $voucher->getId()
+                )?>"
+                class="action primary">Edit</a></td>
+        <td>
+            <form action="<?= sprintf(
+                        '%sid/%s',
+                        $block->getUrl('vouchers/index/delete'),
+                        $voucher->getId()
+                    )?>"
+                    method="post">
+                    <button type="submit" name="submit" class="action primary">Delete</button>
+            </form>
+        </td>
+    </tr>
+<?php } ?>
+</table>
+<?php else: ?>
+<h2>Customer isn't in a privileged group</h2>
+<?php endif;?>

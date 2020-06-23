@@ -6,7 +6,7 @@ use Magento\Framework\Setup\Patch\DataPatchInterface;
 use Magento\Framework\Setup\Patch\PatchVersionInterface;
 use Magento\Customer\Model\GroupFactory;
 
-class privilegedCustomerGroup implements DataPatchInterface, PatchVersionInterface
+class PrivilegedCustomerGroup implements DataPatchInterface, PatchVersionInterface
 {
     private $groupFactory;
 
