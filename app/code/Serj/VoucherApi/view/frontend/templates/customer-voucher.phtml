@@ -1,0 +1,16 @@
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": {
+                "components": {
+                    "customerVoucher": {
+                        "component": "Serj_VoucherApi/js/customer-voucher"
+                    }
+                }
+        }
+    }
+}
+</script>
+<div id="customer-vouchers" data-bind="scope: 'customerVoucher'">
+    <!--ko template: getTemplate()--><!--/ko-->
+</div>

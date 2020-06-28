@@ -7,6 +7,12 @@
 			<resource ref="anonymous"/>
 		</resources>
 	</route>
+    <route method="GET" url="/V1/voucher/my-vouchers/">
+		<service class="Serj\VoucherApi\Api\VoucherRepositoryInterface" method="getCustomerVouchers"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
     <route method="GET" url="/V1/voucher/">
 		<service class="Serj\VoucherApi\Api\VoucherRepositoryInterface" method="getList"/>
 		<resources>

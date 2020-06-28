@@ -15,4 +15,41 @@
         <plugin name="extension_attribute_plugin"
             type="Serj\VoucherApi\Plugin\ExtensionAttributePlugin" sortOrder="2" disabled="false" />
     </type>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item
+                    name="vouchers_grid_listing_data_source"
+                    xsi:type="string">Serj\VoucherApi\Model\ResourceModel\Voucher\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item
+                    name="vouchers_voucher_form_data_source"
+                    xsi:type="string">Serj\VoucherApi\Model\ResourceModel\Voucher\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item
+                    name="vouchers_status_grid_listing_data_source"
+                    xsi:type="string">Serj\VoucherApi\Model\ResourceModel\VoucherStatus\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item
+                    name="vouchers_status_form_data_source"
+                    xsi:type="string">Serj\VoucherApi\Model\ResourceModel\VoucherStatus\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
 </config>

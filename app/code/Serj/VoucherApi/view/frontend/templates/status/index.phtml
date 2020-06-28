@@ -26,18 +26,10 @@ $customerDataProvider->redirectIfNotLoggedIn();
         <tr>
             <td><?php echo $status->getId(); ?></td>
             <td><?php echo $status->getStatusCode(); ?></td>
-            <td><a href="<?= sprintf(
-                        '%sid/%s',
-                        $block->getUrl('vouchers/status/edit'),
-                        $status->getId()
-                    )?>"
+            <td><a href="<?= $block->getUrl('vouchers/status/edit', ['id'=> $status->getId()])?>"
                     class="action primary">Edit</a></td>
             <td>
-                <form action="<?= sprintf(
-                            '%sid/%s',
-                            $block->getUrl('vouchers/status/delete'),
-                            $status->getId()
-                        )?>"
+                <form action="<?= $block->getUrl('vouchers/status/delete', ['id' => $status->getId()])?>"
                         method="post">
                         <button type="submit" name="submit" class="action primary">Delete</button>
                 </form>

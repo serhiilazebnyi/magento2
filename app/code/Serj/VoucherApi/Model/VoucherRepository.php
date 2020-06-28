@@ -9,6 +9,7 @@ use Serj\VoucherApi\Model\VoucherFactory;
 use Serj\VoucherApi\Model\ResourceModel\Voucher as VoucherResource;
 use Serj\VoucherApi\Model\ResourceModel\Voucher\CollectionFactory as VoucherCollectionFactory;
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Customer\Model\Session;
 
 /**
  * class VoucherRepository
@@ -34,6 +35,11 @@ class VoucherRepository implements VoucherRepositoryInterface
     private $voucherCollectionFactory;
 
     /**
+     * @var Session
+     */
+    private $customerSession;
+
+    /**
      * @param VoucherResource          $voucherResource
      * @param CustomerFactory          $customerFactory
      * @param VoucherFactory           $voucherFactory
@@ -43,12 +49,14 @@ class VoucherRepository implements VoucherRepositoryInterface
         VoucherResource $voucherResource,
         CustomerFactory $customerFactory,
         VoucherFactory $voucherFactory,
-        VoucherCollectionFactory $voucherCollectionFactory
+        VoucherCollectionFactory $voucherCollectionFactory,
+        Session $customerSession
     ) {
         $this->voucherResource = $voucherResource;
         $this->voucherFactory = $voucherFactory;
         $this->customerFactory = $customerFactory;
         $this->voucherCollectionFactory = $voucherCollectionFactory;
+        $this->customerSession = $customerSession;
     }
 
     /**
@@ -100,10 +108,6 @@ class VoucherRepository implements VoucherRepositoryInterface
     {
         $voucherCollection = $this->voucherCollectionFactory->create();
 
-        foreach ($voucherCollection as $item) {
-            var_dump(get_class($voucherCollection));
-        }
-        exit();
         $data = $voucherCollection->addFieldToSelect([
             VoucherInterface::ID,
             VoucherInterface::CUSTOMER_ID,
@@ -148,6 +152,28 @@ class VoucherRepository implements VoucherRepositoryInterface
         }
 
         return $data;
+    }
+
+    /**
+     * GET getCustomerVouchers
+     * @return array
+     */
+    public function getCustomerVouchers()
+    {
+        $customerId = $this->customerSession->getId();
+
+        if (!$customerId) {
+            throw new LocalizedException(
+                __('You are not logged in!')
+            );
+        }
+
+        $vouchers = $this->voucherCollectionFactory
+            ->create()
+            ->filterByCustomerId($customerId)
+            ->getData();
+
+        return $vouchers;
     }
 
     /**

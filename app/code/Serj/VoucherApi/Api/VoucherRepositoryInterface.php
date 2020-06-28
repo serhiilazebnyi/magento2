@@ -38,6 +38,12 @@ interface VoucherRepositoryInterface
 	public function getByCustomerId(int $customerId);
 
     /**
+     * GET getCustomerVouchers
+     * @return array
+     */
+    public function getCustomerVouchers();
+
+    /**
      * Gets voucher by id
      * @param  int $voucherId
      * @return VoucherInterface

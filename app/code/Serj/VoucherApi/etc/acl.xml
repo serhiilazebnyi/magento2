@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Customer::customer">
+                    <resource id="Serj_VoucherApi::vouchers" title="Vouchers" sortOrder="40" >
+                        <resource id="Serj_VoucherApi::actions" title="Actions" sortOrder="10" >
+                            <resource id="Serj_VoucherApi::create" title="Create vouchers" sortOrder="10" />
+                            <resource id="Serj_VoucherApi::edit" title="Edit vouchers" sortOrder="20" />
+                            <resource id="Serj_VoucherApi::delete" title="Delete vouchers" sortOrder="30" />
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>
