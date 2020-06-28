@@ -1,0 +1,24 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add
+            id="Serj_VoucherApi::vouchers"
+            title="All Vouchers"
+            translate="title"
+            module="Serj_VoucherApi"
+            sortOrder="60"
+            parent="Magento_Customer::customer"
+            action="vouchers/voucher"
+            resource="Serj_VoucherApi::vouchers"
+            />
+        <add
+            id="Serj_VoucherApi::vouchers_status"
+            title="Voucher Statuses"
+            translate="title"
+            module="Serj_VoucherApi"
+            sortOrder="70"
+            parent="Magento_Customer::customer"
+            action="vouchers/status"
+            resource="Serj_VoucherApi::voucher_status"
+            />
+    </menu>
+</config>

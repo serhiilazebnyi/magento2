@@ -9,6 +9,9 @@
         "constraint": {
             "PRIMARY": true,
             "VOUCHER_STATUS_STATUS_CODE": true
+        },
+        "index": {
+            "VOUCHER_STATUS_STATUS_CODE": true
         }
     },
     "voucher": {
@@ -25,6 +28,9 @@
             "VOUCHER_VOUCHER_CODE": true,
             "VOUCHER_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID": true,
             "VOUCHER_STATUS_ID_VOUCHER_STATUS_ENTITY_ID": true
+        },
+        "index": {
+            "VOUCHER_VOUCHER_CODE": true
         }
     }
 }

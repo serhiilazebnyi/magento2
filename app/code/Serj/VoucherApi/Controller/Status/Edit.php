@@ -4,11 +4,11 @@ namespace Serj\VoucherApi\Controller\Status;
 
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
+use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Framework\App\Request\Http;
-use Magento\Framework\Registry;
 
-class Edit extends Action
+class Edit extends Action implements HttpGetActionInterface
 {
     /**
      * @var Page
@@ -18,26 +18,19 @@ class Edit extends Action
      * @var Http
      */
     private $request;
-    /**
-     * @var Registry
-     */
-    private $coreRegistry;
 
     /**
      * @param Context     $context
      * @param PageFactory $pageFactory
      * @param Http        $request
-     * @param Registry    $coreRegistry
      */
     public function __construct(
         Context $context,
         PageFactory $pageFactory,
-        Http $request,
-        Registry $coreRegistry
+        Http $request
     ) {
         $this->pageFactory = $pageFactory;
         $this->request = $request;
-        $this->coreRegistry = $coreRegistry;
         return parent::__construct($context);
     }
 
@@ -46,8 +39,6 @@ class Edit extends Action
      */
     public function execute()
     {
-        $id = $this->request->getParam('id');
-        $this->coreRegistry->register('editRecordId', $id);
         return $this->pageFactory->create();
     }
 }

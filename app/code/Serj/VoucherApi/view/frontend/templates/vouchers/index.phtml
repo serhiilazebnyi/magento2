@@ -30,22 +30,12 @@ if($customerDataProvider->isPrivilegedCustomer()):
         <td><?php echo $voucher->getId(); ?></td>
         <td><?php echo $voucher->getStatusId(); ?></td>
         <td><?php echo $voucher->getVoucherCode(); ?></td>
-        <td><a href="<?= sprintf(
-                    '%sid/%s',
-                    $block->getUrl('vouchers/index/edit'),
-                    $voucher->getId()
-                )?>"
+        <td><a href="<?= $block->getUrl('vouchers/index/edit', ['id'=> $voucher->getId()])?>"
                 class="action primary">Edit</a></td>
-        <td>
-            <form action="<?= sprintf(
-                        '%sid/%s',
-                        $block->getUrl('vouchers/index/delete'),
-                        $voucher->getId()
-                    )?>"
+        <td><form action="<?= $block->getUrl('vouchers/index/delete', ['id' => $voucher->getId()])?>"
                     method="post">
                     <button type="submit" name="submit" class="action primary">Delete</button>
-            </form>
-        </td>
+            </form></td>
     </tr>
 <?php } ?>
 </table>

@@ -93,7 +93,10 @@ class VoucherStatusRepository implements VoucherStatusRepositoryInterface
         $data = $voucherStatusCollection->addFieldToSelect([
             VoucherStatusInterface::ID,
             VoucherStatusInterface::STATUS_CODE
-        ])->setOrder(VoucherStatusInterface::ID, 'ASC');
+        ])->setOrder(
+            VoucherStatusInterface::ID,
+            \Magento\Framework\Data\Collection::SORT_ORDER_ASC
+        );
 
         if (empty($data)) {
             throw new LocalizedException(__('There is no any voucher status yet!'));

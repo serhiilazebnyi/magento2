@@ -3,7 +3,7 @@
 namespace Serj\VoucherApi\ViewModel;
 
 use Magento\Framework\View\Element\Block\ArgumentInterface;
-use Magento\Framework\Registry;
+use Magento\Framework\App\Request\Http;
 use Serj\VoucherApi\Api\VoucherRepositoryInterface;
 use Serj\VoucherApi\Model\ResourceModel\VoucherStatus\CollectionFactory as VoucherStatusCollection;
 
@@ -13,9 +13,9 @@ use Serj\VoucherApi\Model\ResourceModel\VoucherStatus\CollectionFactory as Vouch
 class VoucherDataProvider implements ArgumentInterface
 {
     /**
-     * @var Registry
+     * @var Http
      */
-    private $registry;
+    private $request;
     /**
      * @var VoucherRepositoryInterface
      */
@@ -26,16 +26,16 @@ class VoucherDataProvider implements ArgumentInterface
     private $voucherStatusCollection;
 
     /**
-     * @param Registry                   $registry
+     * @param Http                       $request
      * @param VoucherRepositoryInterface $voucherRepository
      * @param VoucherStatusCollection    $voucherStatusCollection
      */
     public function __construct(
-        Registry $registry,
+        Http $request,
         VoucherRepositoryInterface $voucherRepository,
         VoucherStatusCollection $voucherStatusCollection
     ) {
-        $this->registry = $registry;
+        $this->request = $request;
         $this->voucherRepository = $voucherRepository;
         $this->voucherStatusCollection = $voucherStatusCollection;
     }
@@ -69,7 +69,7 @@ class VoucherDataProvider implements ArgumentInterface
      */
     public function getEditData()
     {
-        $id = $this->registry->registry('editRecordId');
+        $id = $this->request->getParam('id');
         $voucher = $this->voucherRepository->getById($id);
         return $voucher;
     }
